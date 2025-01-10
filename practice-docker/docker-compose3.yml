@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  pgadmin:
+      image: dpage/pgadmin4:latest
+      container_name: pgadmin
+      network_mode: host
+      environment:
+        PGADMIN_DEFAULT_EMAIL: user@test.com
+        PGADMIN_DEFAULT_PASSWORD: root

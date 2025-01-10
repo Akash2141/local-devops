@@ -1,0 +1,5 @@
+.vagrant/
+sample-project/my-app/node_modules/
+sample-project/my-app/dist/
+sample-project/my-backend/node_modules/
+sample-project/my-backend/dist/
