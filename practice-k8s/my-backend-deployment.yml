@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-backend-service
+  name: my-backend-service
+  namespace: sample-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-backend
+  template:
+    metadata:
+      labels:
+        app: my-backend
+    spec:
+      containers:
+        - name: my-backend-first
+          imagePullPolicy: IfNotPresent
+          image: localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
+          ports:
+            - containerPort: 8080
