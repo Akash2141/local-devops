@@ -4,7 +4,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.box = "ubuntu/jammy64"
     vagrant1.vm.network "forwarded_port", guest: 80, host: 8080
     vagrant1.vm.network "forwarded_port", guest: 8080, host: 8081
-    vagrant1.vm.network "forwarded_port", guest: 32000, host: 32000
+    vagrant1.vm.network "forwarded_port", guest: 10443, host: 10443
+    vagrant1.vm.network "forwarded_port", guest: 8443, host: 8444
+    # vagrant1.vm.network "forwarded_port", guest: 32000, host: 32000
     vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
     vagrant1.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
@@ -15,9 +17,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.synced_folder "./practice-k8s", "/home/vagrant/practice-k8s"
     vagrant1.vm.provision "shell", inline: <<-SHELL
       sudo apt-get update
-      sudo apt install podman podman-compose -y
+      sudo apt install -y python3-pip
+      pip3 install podman-compose
+      sudo apt install podman -y
       sudo snap install microk8s --classic
       sudo microk8s enable registry
+      sudo microk8s enable dashboard
     SHELL
   end
 end
