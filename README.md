@@ -45,12 +45,19 @@ podman push localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
 <!-- To apply deployment file -->
 
 sudo microk8s kubectl apply -f deployment.yaml
+
 kubectl get deployments
+
 kubectl get deployments --namespace=production
+
 kubectl get deployments --all-namespaces
+
 kubectl get deployments -o wide
+
 kubectl describe deployment <deployment-name>
+
 kubectl delete deployment my-backend --namespace=production
+
 kubectl get pods
 
 <!-- port forward the kubernetes dashboard -->
