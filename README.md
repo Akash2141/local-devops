@@ -107,7 +107,7 @@ kubectl get pods
 <!-- port forward the kubernetes dashboard -->
 
 ```console
-sudo microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443
+sudo microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address=0.0.0.0
 ```
 
 <!-- access kubernetes dashboard via curl -->
