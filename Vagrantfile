@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.synced_folder "./practice-k8s", "/home/vagrant/practice-k8s"
     vagrant1.vm.provision "shell", inline: <<-SHELL
       sudo apt-get update
-      sudo apt install -y python3-pip
+      sudo apt install -y python3-pip curl
       pip3 install podman-compose
       sudo apt install podman -y
       sudo snap install microk8s --classic

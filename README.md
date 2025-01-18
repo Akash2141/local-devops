@@ -121,3 +121,58 @@ curl -k https://localhost:10443
 ```console
 sudo microk8s kubectl create token default
 ```
+
+<!-- POD Creation -->
+
+```console
+sudo microk8s kubectl run my-backend --image=localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d --port=8080 --restart=Never
+
+```
+
+<!-- POD Debug using BusyBox -->
+
+```console
+sudo microk8s kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
+```
+
+<!-- GET POD with IP Address -->
+
+```console
+sudo microk8s kubectl get pods -o wide
+```
+
+<!-- Enable Load Balancer In Microk8s -->
+
+```console
+sudo microk8s enable metallb
+```
+
+<!-- provide IP Address range -->
+
+```console
+192.168.1.100-192.168.1.200
+```
+
+<!-- Verify MetaLB -->
+
+```console
+sudo microk8s kubectl get pods -n metallb-system
+```
+
+<!-- Expose pod to load balancer service -->
+
+```console
+sudo microk8s kubectl expose pod my-backend --type=LoadBalancer --name=my-backend-http --port=8080 --target-port=8080
+```
+
+<!-- Delete service -->
+
+```console
+sudo microk8s kubectl delete service my-backend-http
+```
+
+<!-- Access the service using external IP address -->
+
+```console
+curl 192.168.1.100:8080/get/users
+```
