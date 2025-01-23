@@ -4,9 +4,14 @@ metadata:
   labels:
     app: my-backend-service
   name: my-backend-service
-  namespace: sample-project
+  namespace: local-devops
 spec:
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: my-backend
@@ -16,8 +21,20 @@ spec:
         app: my-backend
     spec:
       containers:
-        - name: my-backend-first
+        - name: my-backend
           imagePullPolicy: IfNotPresent
           image: localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /ready-check
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /live-check
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
