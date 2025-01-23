@@ -175,4 +175,7 @@ sudo microk8s kubectl delete service my-backend-http
 
 ```console
 curl 192.168.1.100:8080/get/users
+curl 10.1.192.138:8080/get/users
+curl 10.152.183.42:8080/get/users
+curl 10.152.183.42:8080/get/users
 ```
