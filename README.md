@@ -37,7 +37,8 @@ curl http://localhost:32000/v2/my-backend/tags/list
 <!-- build docker image with podman that will use local registry -->
 
 ```console
-podman build -t localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d .
+podman build -t localhost:32000/my-backend:v1 .
+podman build -t localhost:32000/my-backend:v2 .
 ```
 
 <!-- if you have alread image that you need to push on local registry change the tag name -->
@@ -67,7 +68,7 @@ podman push localhost:32000/my-app:latest
 ```
 
 ```console
-podman push localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
+podman push localhost:32000/my-backend:v1
 ```
 
 <!-- To apply deployment file -->
@@ -125,7 +126,7 @@ sudo microk8s kubectl create token default
 <!-- POD Creation -->
 
 ```console
-sudo microk8s kubectl run my-backend --image=localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d --port=8080 --restart=Never
+sudo microk8s kubectl run my-backend --image=localhost:32000/my-backend:v1 --port=8080 --restart=Never
 
 ```
 
@@ -178,4 +179,24 @@ curl 192.168.1.100:8080/get/users
 curl 10.1.192.138:8080/get/users
 curl 10.152.183.42:8080/get/users
 curl 10.152.183.42:8080/get/users
+```
+
+<!-- Delete Pod -->
+
+```console
+sudo microk8s kubectl delete pod <pod-name>
+sudo microk8s kubectl delete pod my-backend-pod
+```
+
+<!-- Get Replicaset -->
+
+```console
+sudo microk8s kubectl get replicaset -n local-devops
+```
+
+<!-- Delete Replicasets -->
+
+```console
+sudo microk8s kubectl delete replicaset <replicaset-name>
+sudo microk8s kubectl delete replicaset my-backend-replicaset
 ```

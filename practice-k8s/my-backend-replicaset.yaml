@@ -1,17 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
   labels:
-    app: my-backend-deployment
-  name: my-backend-deployment
+    app: my-backend-replicaset
+  name: my-backend-replicaset
   namespace: local-devops
 spec:
   replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   selector:
     matchLabels:
       app: my-backend
@@ -23,7 +18,7 @@ spec:
       containers:
         - name: my-backend
           imagePullPolicy: IfNotPresent
-          image: localhost:32000/my-backend:v2
+          image: localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
           ports:
             - containerPort: 8080
           readinessProbe:
