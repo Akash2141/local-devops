@@ -6,6 +6,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.network "forwarded_port", guest: 8080, host: 8081
     vagrant1.vm.network "forwarded_port", guest: 10443, host: 10443
     vagrant1.vm.network "forwarded_port", guest: 8443, host: 8444
+    vagrant1.vm.network "forwarded_port", guest: 8082, host: 8082 # argocd port
     # vagrant1.vm.network "forwarded_port", guest: 32000, host: 32000
     vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
     vagrant1.vm.provider "virtualbox" do |vb|
@@ -21,8 +22,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       pip3 install podman-compose
       sudo apt install podman -y
       sudo snap install microk8s --classic
-      sudo microk8s enable registry
-      sudo microk8s enable dashboard
+      sudo microk8s enable registry 
+      sudo microk8s enable dashboard 
+      sudo microk8s enable dns 
+      sudo microk8s enable storage 
+      sudo microk8s enable rbac 
+      sudo microk8s enable ingress 
+      sudo microk8s enable metallb
     SHELL
   end
 end

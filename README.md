@@ -200,3 +200,20 @@ sudo microk8s kubectl get replicaset -n local-devops
 sudo microk8s kubectl delete replicaset <replicaset-name>
 sudo microk8s kubectl delete replicaset my-backend-replicaset
 ```
+
+<!-- Install Microk8s In cluster -->
+
+```console
+
+sudo microk8s kubectl create namespace argocd
+
+sudo microk8s kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+sudo microk8s kubectl patch svc argocd-server -n argocd -p '{"spec": {"ports": [{"port": 443, "targetPort": 8080, "protocol": "TCP", "name": "https"}]}}'
+```
+
+<!-- To get the IP Of Node -->
+
+```console
+sudo microk8s kubectl get nodes -o wide
+```
