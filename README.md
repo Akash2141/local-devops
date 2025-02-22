@@ -185,7 +185,7 @@ curl 10.152.183.42:8080/get/users
 
 ```console
 sudo microk8s kubectl delete pod <pod-name>
-sudo microk8s kubectl delete pod my-backend-pod
+sudo microk8s kubectl delete pod my-backend-replicaset-8vhhx -n local-devops
 ```
 
 <!-- Get Replicaset -->
@@ -197,8 +197,8 @@ sudo microk8s kubectl get replicaset -n local-devops
 <!-- Delete Replicasets -->
 
 ```console
-sudo microk8s kubectl delete replicaset <replicaset-name>
-sudo microk8s kubectl delete replicaset my-backend-replicaset
+sudo microk8s kubectl delete replicaset <replicaset-name> -n local-devops
+sudo microk8s kubectl delete replicaset my-backend-replicaset -n local-devops
 ```
 
 <!-- Install Microk8s In cluster -->

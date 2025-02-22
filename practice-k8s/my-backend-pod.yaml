@@ -9,7 +9,7 @@ spec:
   containers:
     - name: my-backend
       imagePullPolicy: IfNotPresent
-      image: localhost:32000/my-backend:3d19f8a38e86b2fef1d8e10e70577a0c55f8247d
+      image: localhost:32000/my-backend:v1
       ports:
         - containerPort: 8080
       readinessProbe:

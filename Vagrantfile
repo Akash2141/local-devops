@@ -28,7 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       sudo microk8s enable storage 
       sudo microk8s enable rbac 
       sudo microk8s enable ingress 
-      sudo microk8s enable metallb
     SHELL
   end
 end
