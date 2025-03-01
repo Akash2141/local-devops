@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.network "forwarded_port", guest: 8082, host: 8082 # argocd port
     # vagrant1.vm.network "forwarded_port", guest: 32000, host: 32000
     vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
+    vagrant1.vm.network "forwarded_port", guest: 30267, host: 8085
     vagrant1.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = "2"
@@ -24,10 +25,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       sudo snap install microk8s --classic
       sudo microk8s enable registry 
       sudo microk8s enable dashboard 
-      sudo microk8s enable dns 
-      sudo microk8s enable storage 
-      sudo microk8s enable rbac 
-      sudo microk8s enable ingress 
     SHELL
   end
 end

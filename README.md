@@ -130,10 +130,12 @@ sudo microk8s kubectl run my-backend --image=localhost:32000/my-backend:v1 --por
 
 ```
 
-<!-- POD Debug using BusyBox -->
+<!-- POD Debug using BusyBox/curlpod -->
 
 ```console
 sudo microk8s kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
+
+sudo microk8s kubectl run -it --rm --restart=Never curlpod --image=curlimages/curl sh
 ```
 
 <!-- GET POD with IP Address -->
@@ -152,6 +154,8 @@ sudo microk8s enable metallb
 
 ```console
 192.168.1.100-192.168.1.200
+
+127.0.0.1
 ```
 
 <!-- Verify MetaLB -->
@@ -205,15 +209,35 @@ sudo microk8s kubectl delete replicaset my-backend-replicaset -n local-devops
 
 ```console
 
+sudo microk8s enable dns
+
+sudo microk8s enable storage
+
+sudo microk8s enable rbac
+
+sudo microk8s enable ingress
+
+sudo microk8s enable metallb
+
 sudo microk8s kubectl create namespace argocd
 
 sudo microk8s kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 sudo microk8s kubectl patch svc argocd-server -n argocd -p '{"spec": {"ports": [{"port": 443, "targetPort": 8080, "protocol": "TCP", "name": "https"}]}}'
+
+sudo microk8s kubectl port-forward -n argocd argocd-server 8082:443 --address=0.0.0.0
+
+sudo microk8s kubectl port-forward svc/argocd-server 8082:80 -n argocd
+
+sudo microk8s kubectl port-forward svc/my-backend-clusterip 8082:8080 -n local-devops
 ```
 
 <!-- To get the IP Of Node -->
 
 ```console
 sudo microk8s kubectl get nodes -o wide
+```
+
+```
+kubectl apply --dry-run=client -o yaml -k ./
 ```
