@@ -205,10 +205,9 @@ sudo microk8s kubectl delete replicaset <replicaset-name> -n local-devops
 sudo microk8s kubectl delete replicaset my-backend-replicaset -n local-devops
 ```
 
-<!-- Install Microk8s In cluster -->
+<!-- Enable Services In Microk8s -->
 
 ```console
-
 sudo microk8s enable dns
 
 sudo microk8s enable storage
@@ -218,17 +217,26 @@ sudo microk8s enable rbac
 sudo microk8s enable ingress
 
 sudo microk8s enable metallb
+```
+
+<!-- Install Microk8s In cluster -->
+
+```console
 
 sudo microk8s kubectl create namespace argocd
 
 sudo microk8s kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-sudo microk8s kubectl patch svc argocd-server -n argocd -p '{"spec": {"ports": [{"port": 443, "targetPort": 8080, "protocol": "TCP", "name": "https"}]}}'
+sudo microk8s kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort", "ports": [{"port": 443, "targetPort": 8080, "nodePort": 30267}]}}'
 
-sudo microk8s kubectl port-forward -n argocd argocd-server 8082:443 --address=0.0.0.0
+sudo microk8s kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
 
-sudo microk8s kubectl port-forward svc/argocd-server 8082:80 -n argocd
 
+```
+
+<!-- Port forward service -->
+
+```console
 sudo microk8s kubectl port-forward svc/my-backend-clusterip 8082:8080 -n local-devops
 ```
 
