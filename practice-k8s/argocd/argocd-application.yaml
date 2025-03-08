@@ -6,9 +6,9 @@ metadata:
 spec:
   project: local-devops-project
   source:
-    repoURL: https://github.com/your-org/your-repo.git # Change this to your repo
+    repoURL: https://github.com/Akash2141/local-devops.git # Change this to your repo
     targetRevision: master # Branch name
-    path: manifests # Path in the repo where k8s YAML files exist
+    path: practice-k8s/argocd-k8s # Path in the repo where k8s YAML files exist
   destination:
     server: https://kubernetes.default.svc
     namespace: local-devops
