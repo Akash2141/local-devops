@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-backend-app
+  namespace: argocd
+spec:
+  project: local-devops-project
+  source:
+    repoURL: https://github.com/your-org/your-repo.git # Change this to your repo
+    targetRevision: master # Branch name
+    path: manifests # Path in the repo where k8s YAML files exist
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-devops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true # Ensure the namespace exists
