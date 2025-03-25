@@ -246,6 +246,24 @@ sudo microk8s kubectl port-forward svc/my-backend-clusterip 8082:8080 -n local-d
 sudo microk8s kubectl get nodes -o wide
 ```
 
+<!-- Refer Kustomization -->
+
+```url
+https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/
+```
+
 ```
 kubectl apply --dry-run=client -o yaml -k ./
+```
+
+<!-- Verify the changes in kustomize -->
+
+```
+kubectl kustomize .
+```
+
+<!-- Gell All resources -->
+
+```
+kubectl get all
 ```
