@@ -259,7 +259,7 @@ kubectl apply --dry-run=client -o yaml -k ./
 <!-- Verify the changes in kustomize -->
 
 ```
-kubectl kustomize .
+microk8s kubectl kustomize .
 ```
 
 <!-- Gell All resources -->

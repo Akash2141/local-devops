@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-backend-deployment
+  name: my-backend-deployment
+  namespace: local-devops
+spec:
+  replicas: 3
