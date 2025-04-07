@@ -23,7 +23,7 @@ spec:
       containers:
         - name: my-backend
           imagePullPolicy: IfNotPresent
-          image: localhost:32000/my-backend:v2
+          image: localhost:32000/my-backend:v1
           ports:
             - containerPort: 8080
           readinessProbe:

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - deployment.yaml
+  - ingress.yaml
   - services.yaml
 configMapGenerator:
   - name: sample-backend-config

@@ -6,4 +6,4 @@ metadata:
   name: my-backend-deployment
   namespace: local-devops
 spec:
-  replicas: 3
+  replicas: 1

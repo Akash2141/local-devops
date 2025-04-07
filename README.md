@@ -5,6 +5,14 @@ vagrant reload
 ```
 
 ```console
+vagrant up
+```
+
+```console
+vagrant destroy
+```
+
+```console
 docker build -t fastify-backend:latest .
 ```
 
@@ -154,8 +162,6 @@ sudo microk8s enable metallb
 
 ```console
 192.168.1.100-192.168.1.200
-
-127.0.0.1
 ```
 
 <!-- Verify MetaLB -->
@@ -266,4 +272,20 @@ microk8s kubectl kustomize .
 
 ```
 kubectl get all
+```
+
+<!-- Ingress -->
+
+```
+sudo microk8s kubectl get pods -n ingress
+```
+
+```
+sudo microk8s kubectl exec -it nginx-ingress-microk8s-controller-82xtr -n ingress -- bash
+```
+
+<!-- Check the nginx.conf -->
+
+```
+sudo nano nginx.conf
 ```
