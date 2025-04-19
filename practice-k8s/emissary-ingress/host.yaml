@@ -1,0 +1,10 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: http-example-host
+  namespace: emissary
+spec:
+  hostname: firstproject.localdevops.com
+  requestPolicy:
+    insecure:
+      action: Route

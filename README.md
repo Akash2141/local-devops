@@ -289,3 +289,71 @@ sudo microk8s kubectl exec -it nginx-ingress-microk8s-controller-82xtr -n ingres
 ```
 sudo nano nginx.conf
 ```
+
+# Emissary Ingress Setup
+
+Ambasador Reference
+
+```url
+https://www.getambassador.io/docs/emissary/latest/topics/concepts/kubernetes-network-architecture
+https://www.getambassador.io/docs/emissary/latest/howtos/configure-communications
+```
+
+Ambassador Installation
+
+```
+sudo microk8s kubectl create namespace emissary && \
+sudo microk8s kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml && \
+sudo microk8s kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
+
+sudo microk8s kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-emissaryns.yaml && \
+sudo microk8s kubectl -n emissary wait --for condition=available --timeout=90s deploy -lproduct=aes
+
+```
+
+## Listener
+
+```
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: http-listener
+  namespace: ambassador
+spec:
+  port: 8080
+  protocol: HTTP
+  hostBinding:
+    namespace:
+      from: ALL
+```
+
+## Host
+
+```
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: http-example-host
+  namespace: ambassador
+spec:
+  hostname: firstproject.localdevops.com
+  requestPolicy:
+    insecure:
+      action: Route
+```
+
+## Mapping
+
+```
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: http-example-mapping
+  namespace: ambassador
+spec:
+  prefix: /
+  hostname: example.com
+  service: httpbin.org
+```

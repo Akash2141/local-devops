@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: http-example-mapping
+  namespace: local-devops
+spec:
+  prefix: /
+  hostname: firstproject.localdevops.com
+  service: my-backend-clusterip
