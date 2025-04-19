@@ -302,6 +302,33 @@ https://www.getambassador.io/docs/emissary/latest/howtos/configure-communication
 Ambassador Installation
 
 ```
+sudo microk8s enable metallb
+```
+
+```console
+192.168.1.100-192.168.1.200
+```
+
+```
+cd practice-k8s/emissary-ingress/
+sudo microk8s kubectl apply -f namespace.yaml
+sudo microk8s kubectl apply -f service.yaml
+sudo microk8s kubectl apply -f deployment.yaml
+sudo microk8s kubectl apply -f http-listener.yaml
+sudo microk8s kubectl apply -f host.yaml
+sudo microk8s kubectl apply -f mapping.yaml
+sudo nano /etc/hosts
+curl http://firstproject.localdevops.com/get/users
+sudo microk8s kubectl get pods -n emissary
+sudo microk8s kubectl get svc -n emissary
+sudo microk8s kubectl get listeners -n emissary
+sudo microk8s kubectl get hosts -n emissary
+sudo microk8s kubectl get mappings -n local-devops
+sudo microk8s kubectl get svc -n local-devops
+curl -H "Host: firstproject.localdevops.com" http://192.168.1.100/get/users
+```
+
+```
 sudo microk8s kubectl create namespace emissary && \
 sudo microk8s kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml && \
 sudo microk8s kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system

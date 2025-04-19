@@ -11,8 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
     vagrant1.vm.network "forwarded_port", guest: 30267, host: 8085
     vagrant1.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-      vb.cpus = "2"
+      vb.memory = "4096"
+      vb.cpus = "3"
     end
     vagrant1.vm.synced_folder "./practice-docker", "/home/vagrant/practice-docker"
     vagrant1.vm.synced_folder "./sample-project", "/home/vagrant/sample-project"
