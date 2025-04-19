@@ -7,3 +7,5 @@ spec:
   prefix: /
   hostname: firstproject.localdevops.com
   service: my-backend-clusterip:8080
+  remove_response_headers:
+    - x-envoy-upstream-service-time

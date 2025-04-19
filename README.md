@@ -318,6 +318,7 @@ sudo microk8s kubectl apply -f http-listener.yaml
 sudo microk8s kubectl apply -f host.yaml
 sudo microk8s kubectl apply -f mapping.yaml
 sudo nano /etc/hosts
+192.168.1.100 firstproject.localdevops.com
 curl http://firstproject.localdevops.com/get/users
 sudo microk8s kubectl get pods -n emissary
 sudo microk8s kubectl get svc -n emissary
