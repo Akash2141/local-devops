@@ -5,7 +5,7 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - ingress.yaml
-  - services.yaml
+  - service.yaml
   - secret.yaml
 configMapGenerator:
   - name: sample-backend-config

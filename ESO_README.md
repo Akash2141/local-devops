@@ -32,6 +32,11 @@ $ sudo microk8s kubectl get svc -n vault
 $ sudo microk8s kubectl logs -f vault-0 -n vault
 ```
 
+### Verify the vault health by calling service
+```sh
+$ curl -s http://vault.vault:8200/v1/sys/health
+```
+
 ## 2. Configure Vault Secrets and Policy
 Next, you need to create a secret in Vault and configure the Kubernetes authentication method so ESO can access it securely.
 ### Access the Vault Pod: Get a shell inside the running Vault pod.
@@ -91,6 +96,14 @@ $ sudo microk8s helm repo update
 $ sudo microk8s helm install external-secrets external-secrets/external-secrets \
   --namespace external-secrets --create-namespace \
   --set installCRDs=true
+```
+
+Create the secret with the token which will require to authenticate to Vault.
+We are not using Secret and Policy way to authenticate
+```sh
+$ sudo microk8s kubectl create secret generic vault-token-secret \
+  --from-literal=token="root" \
+  --namespace local-devops
 ```
 ### Create the ClusterSecretStore: This tells ESO how to authenticate to and communicate with your local Vault instance using the Kubernetes Service Account you configured in the previous step.
 Create a file named *vault-clustersecretstore.yaml*:
@@ -154,6 +167,12 @@ spec:
 sudo microk8s kubectl apply -f my-app-externalsecret.yaml
 # Check the created Kubernetes secret
 sudo microk8s kubectl get secret my-app-k8s-secret -o yaml
+```
+
+#### Verify the external secret 
+If there is any issue you can see here.
+```sh
+$ sudo microk8s kubectl describe externalsecret local-devops-secret -n local-devops
 ```
 
 **Consume in Deployment:** Inject the secret into your application pod's environment variables using the standard valueFrom or envFrom fields, just as you would with a synced GCP Secret.

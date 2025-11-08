@@ -25,7 +25,7 @@ spec:
           - secretRef:
               name: local-devops-secret # The secret created by ESO
           - configMapRef:
-              name: my-app-config # Add your existing ConfigMap here
+              name: sample-backend-config # Add your existing ConfigMap here
           imagePullPolicy: IfNotPresent
           image: localhost:32000/my-backend:v1
           ports:
