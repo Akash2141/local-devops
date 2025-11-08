@@ -184,3 +184,25 @@ env:
         key: DB_USERNAME
         version: "1"
 ```
+
+# Delete secret store
+```yaml
+$ sudo microk8s kubectl delete clustersecretstore local-devops-secret-store -n local-devops
+```
+
+# Delete external secret
+```sh
+$ sudo microk8s kubectl delete externalsecret local-devops-secret -n local-devops
+```
+
+# Get into the sh
+```sh
+$ sudo microk8s kubectl exec -it vault-0 -n vault -- /bin/sh
+$ vault kv get kv/test/dev
+```
+It should return the value you have set
+
+# Check the secret value via curl
+```sh
+$ curl --header "X-Vault-Token: root" --request GET http://127.0.0.1:8200/v1/kv/test/data/dev
+```
