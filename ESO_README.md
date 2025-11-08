@@ -1,4 +1,11 @@
 # Add External Secret Operator Using Hashicorp Vault Locally
+We are going to do in steps
+1. Hashicorp Vault Setup : this would be our local vault server.
+2. External Secrets Operator (ESO) Installation
+3. Automatic Secret Generation: ESO will create kubernetes secret automaticaly
+4. Consume Secrets In application
+
+Ref: https://github.com/rslim087a/vault-kubernetes-external-secrets-tutorial
 
 ## 1. 🔑 Install HashiCorp Vault (Dev Mode)
 ### Add the HashiCorp Helm Repository:
@@ -138,3 +145,11 @@ sudo microk8s kubectl get secret my-app-k8s-secret -o yaml
 ```
 
 **Consume in Deployment:** Inject the secret into your application pod's environment variables using the standard valueFrom or envFrom fields, just as you would with a synced GCP Secret.
+```yaml
+env:
+- valueFrom:
+    secretKeyRef:
+        name: my-app-synced-secrets
+        key: DB_USERNAME
+        version: "1"
+```
