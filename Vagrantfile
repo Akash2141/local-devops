@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vagrant1.vm.network "forwarded_port", guest: 32000, host: 32000
     vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
     vagrant1.vm.network "forwarded_port", guest: 30267, host: 8085
+    vagrant1.vm.network "forwarded_port", guest: 8200, host: 8200
     vagrant1.vm.provider "virtualbox" do |vb|
       vb.memory = "4096"
       vb.cpus = "3"

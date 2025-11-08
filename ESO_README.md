@@ -27,6 +27,11 @@ $ sudo microk8s helm install vault hashicorp/vault \
 $ sudo microk8s kubectl get svc -n vault
 ```
 
+### Get default token to login
+```sh
+$ sudo microk8s kubectl logs -f vault-0 -n vault
+```
+
 ## 2. Configure Vault Secrets and Policy
 Next, you need to create a secret in Vault and configure the Kubernetes authentication method so ESO can access it securely.
 ### Access the Vault Pod: Get a shell inside the running Vault pod.
@@ -76,6 +81,13 @@ $ exit
 ## 3. Install and Configure External Secrets Operator (ESO)
 ### Install ESO: (If you haven't already from the previous answer).
 ```sh
+# 1. Add the repository
+sudo microk8s helm repo add external-secrets https://charts.external-secrets.io
+
+# 2. Update the local repository cache
+$ sudo microk8s helm repo update
+
+# 3. Install ESO
 $ sudo microk8s helm install external-secrets external-secrets/external-secrets \
   --namespace external-secrets --create-namespace \
   --set installCRDs=true

@@ -243,7 +243,7 @@ sudo microk8s kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpa
 <!-- Port forward service -->
 
 ```console
-sudo microk8s kubectl port-forward svc/my-backend-clusterip 8082:8080 -n local-devops
+sudo microk8s kubectl port-forward svc/my-backend-clusterip 8082:8080 -n local-devops --address=0.0.0.0
 ```
 
 <!-- To get the IP Of Node -->
