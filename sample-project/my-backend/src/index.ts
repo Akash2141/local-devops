@@ -1,6 +1,6 @@
 import buildFastifyApp from "./app";
 import { DB_PASSWORD, ENVIRONMENT, HOST, PORT } from "./config";
-
+console.log("process.env::",process.env);
 async function main() {
   try {
     const fastifyApp = await buildFastifyApp();

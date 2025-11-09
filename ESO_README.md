@@ -206,3 +206,8 @@ It should return the value you have set
 ```sh
 $ curl --header "X-Vault-Token: root" --request GET http://127.0.0.1:8200/v1/kv/test/data/dev
 ```
+
+# Port Forward the vault UI service
+```sh
+$ sudo microk8s kubectl port-forward svc/vault-ui 8200:8200 -n vault --address=0.0.0.0
+```
